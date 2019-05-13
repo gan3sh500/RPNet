@@ -15,7 +15,7 @@ from abstract_network.abstract import AbstractNetwork
 from GoogLeNet.googlenet import GoogLeNet
 import tensorflow as tf
 import numpy as np
-
+from plot import plot_to_image, plot_figure
 
 slim = tf.contrib.slim  # @UndefinedVariable
 
@@ -149,7 +149,8 @@ class RPNet(AbstractNetwork):
         # train for half epoch
         while True:
             try:
-                tmp = sess.run([self.tran_loss, self.rotat_loss, self.xyz_logits, self.wpqr_logits, self.input_Y])                
+                tmp = sess.run([self.tran_loss, self.rotat_loss, self.xyz_logits, self.wpqr_logits, self.input_Y, self.input_X])                
+                image = plot_to_image(plot_figure(tmp))
                 loss.append([tmp[0], tmp[1]])
                 tmp[3] = tmp[3]/ np.linalg.norm(tmp[3], axis=1, keepdims = True)
                 d = np.abs(np.sum(np.multiply(tmp[3], tmp[4][:, 3:]), axis=1))
@@ -170,9 +171,12 @@ class RPNet(AbstractNetwork):
         sess.run(self.valid_error.assign(error))
         
         summary_str = sess.run(self.valid_summary)
+        step = sess.run(tf.train.get_global_step())
         for each in summary_str: 
-            self.summary_writer.add_summary(each, sess.run(tf.train.get_global_step()))
-    
+            self.summary_writer.add_summary(each, step)
+        with self.summary_writer.as_default():
+            tf.summary.image('Validation example', image, step=step)
+
     def _custom_evaluation(self, sess):
 
         loss = []
