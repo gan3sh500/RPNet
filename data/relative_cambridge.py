@@ -271,7 +271,7 @@ class RelativeCambridge(AbstractData):
         global images
         
         images = create_share_ndarray((len(annot), 2, 256, 455, 3), 'uint8', ctypes.c_uint8)
-        pool = Pool(processes = multiprocessing.cpu_count() - 10)  # @UndefinedVariable
+        pool = Pool(processes = multiprocessing.cpu_count() - 1)  # @UndefinedVariable
         pool.map(_read_image, enumerate(annot))
         pool.close()
         pool.join()
