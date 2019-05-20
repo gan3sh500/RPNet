@@ -287,7 +287,7 @@ class RelativeCambridge(AbstractData):
 # 
 #             images[index] = np.array([im1, im2])
         images = images.astype('f4')
-        images = images - images.mean(axis=0).mean(axis=0)
+        images -= images.mean(axis=0).mean(axis=0)
         
         relative_pose = self._get_relative_pose(np.hstack((annot[:, 1:8], annot[:, 9:])).astype('f4'))
         return {'image': images, 
