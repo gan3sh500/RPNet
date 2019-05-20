@@ -296,5 +296,5 @@ class RelativeCambridge(AbstractData):
 
 
 if __name__ == '__main__':
-    for subset in  ['GreatCourt', 'KingsCollege', 'OldHospital', 'ShopFacade', 'StMarysChurch', 'Street'][1:]:
+    for subset in  ['GreatCourt', 'KingsCollege', 'OldHospital', 'ShopFacade', 'StMarysChurch', 'Street'][1:-1]:
         RelativeCambridge(subset)
