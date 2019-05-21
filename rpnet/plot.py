@@ -1,5 +1,7 @@
 import io
 import tensorflow as tf
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 
