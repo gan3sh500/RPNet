@@ -32,11 +32,3 @@ def plot_to_image(figure):
     image = tf.image.decode_png(buf.getvalue(), channels=4)
     image = tf.expand_dims(image, 0)
     return image
-
-
-
-
-
-
-
-
