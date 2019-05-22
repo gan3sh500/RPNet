@@ -125,7 +125,7 @@ if __name__ == '__main__':
     parser.add_argument("--nb_run", default = 1, type = int, help ='each run per configuration, useful to compute std')
     parser.add_argument("--experiment", default= 'cambridge', help='group of experiments')
     parser.add_argument("--use_dropout", type = int, default = 0, help='use dropout or not 0 or 1')
-    parser.add_argument("--continue_training", type = int, default = 0, help='continue training on the logdir if done.txt is not yet created. Use for resuming training')
+    parser.add_argument("--continue_training", type = int, default = 1, help='continue training on the logdir if done.txt is not yet created. Use for resuming training')
     parser.add_argument("--use_extraLoss", type = int, default = 1, help='use extraLoss for absolute pose')
     parser.add_argument("--gamma", type = int, default = 10, help='weight for relative translation loss')
     parser.add_argument("--alpha", type = int, default = 100, help='weight for relative rotation loss')
