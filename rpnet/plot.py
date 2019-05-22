@@ -10,7 +10,8 @@ def plot_figure(tmp, max_size=10):
     plot_size = min(max_size, len(xyz))
     figure = plt.figure(figsize=(plot_size, 2))
     for i in range(plot_size):
-        plt.subplot(plot_size, 2, 2*i + 1, title=','.join(xyz[i].tolist() + wpqr[i].tolist()))
+        xyzwpqr = list(map(str, xyz[i].tolist() + wpqr[i].tolist()))
+        plt.subplot(plot_size, 2, 2*i + 1, title=','.join(xyzwpqr))
         plt.xticks([])
         plt.yticks([])
         plt.grid(False)
