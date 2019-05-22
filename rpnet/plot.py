@@ -21,7 +21,7 @@ def plot_figure(tmp, max_size=10):
         plt.xticks([])
         plt.yticks([])
         plt.grid(False)
-        plt.imshow(x2_[i, 1])
+        plt.imshow(xx[i, 1])
     return figure
 
 
