@@ -174,8 +174,12 @@ class RPNet(AbstractNetwork):
         step = sess.run(tf.train.get_global_step())
         for each in summary_str: 
             self.summary_writer.add_summary(each, step)
-        with self.summary_writer.as_default():
-            tf.summary.image('Validation example', image, step=step)
+        image_summary = tf.Summary.Image(encoded_image_string=image,
+                                         height=7, width=7)
+        image_summary = tf.Summary(value=[tf.Summary.Value(tag='Errors',
+                                                           image=image_summary)])
+        self.summary_writer.add_summary(image_summary, global_step=step)
+
 
     def _custom_evaluation(self, sess):
 
