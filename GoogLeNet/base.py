@@ -50,7 +50,8 @@ class Network(object):
         '''Construct the abstract_network. '''
         raise NotImplementedError('Must be implemented by the subclass.')
 
-    def load(self, data_path, session, ignore_missing=False, prefix = ''):
+    def load(self, session, ignore_missing=False, prefix = '',
+             data_path='GoogLeNet/weights/posenet.npy'):
         '''Load abstract_network weights.
         data_path: The path to the numpy-serialized abstract_network weights
         session: The current TensorFlow session
