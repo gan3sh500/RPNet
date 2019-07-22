@@ -130,6 +130,7 @@ if __name__ == '__main__':
     parser.add_argument("--gamma", type = int, default = 10, help='weight for relative translation loss')
     parser.add_argument("--alpha", type = int, default = 100, help='weight for relative rotation loss')
     parser.add_argument("--use_aux", type = int, default = 0, help = "use auxilary loss of googLeNet or not")
+    parser.add_argument("--base_model", type = str, default = 'googlenet', help = "use googLeNet or efficientnet")
     
     FLAGS, unparsed = parser.parse_known_args()
 

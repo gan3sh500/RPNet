@@ -35,7 +35,7 @@ class RPNet(AbstractNetwork):
         
         flags.name = 'RPNet'
         self.output_dim = 7
-        if flags.base_model == 'googlenet'
+        if flags.base_model == 'googlenet':
             self.ModelClass = GoogLeNet
         else:
             self.ModelClass = EfficientNet
