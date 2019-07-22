@@ -13,6 +13,7 @@ import data_preprocessing  # @UnresolvedImport
 from abstract_network.setting import Setting
 from abstract_network.abstract import AbstractNetwork
 from GoogLeNet.googlenet import GoogLeNet
+from efficientnet import EfficientNet
 import tensorflow as tf
 import numpy as np
 from plot import plot_to_image, plot_figure
@@ -34,7 +35,10 @@ class RPNet(AbstractNetwork):
         
         flags.name = 'RPNet'
         self.output_dim = 7
-
+        if flags.base_model == 'googlenet'
+            self.ModelClass = GoogLeNet
+        else:
+            self.ModelClass = EfficientNet
         self.use_extraLoss = flags.use_extraLoss
         self.wd = flags.wd
         self.beta = flags.beta
@@ -75,10 +79,10 @@ class RPNet(AbstractNetwork):
 
     def prepare_inference(self):
         
-        with tf.variable_scope("siamese") as scope:
-            net_1 = GoogLeNet({'data': self.input_X[:, 0]})
+        with tf.variable_scope("") as scope:
+            net_1 = self.ModelClass({'data': self.input_X[:, 0]})
             scope.reuse_variables()
-            net_2 = GoogLeNet({'data': self.input_X[:, 1]})
+            net_2 = self.ModelClass({'data': self.input_X[:, 1]})
         
         weight_vars = [v for v in tf.global_variables() if "weights" in v.name]
         print('weight var: ', len(weight_vars))
@@ -127,7 +131,7 @@ class RPNet(AbstractNetwork):
             self.extra_loss_4(self.net_2, self.extra_input_Y2)
 
     def _load_pretrained_weight(self, sess):
-        self.net_1.load('../GoogLeNet/weights/posenet.npy', sess, 'siamese/')
+        self.net_1.load(sess, '')
 
     def _define_additional_summaries(self):
         self.valid_loss, self.valid_error = tf.Variable([0, 0], dtype='float32', trainable=False), tf.Variable([0, 0], dtype='float32', trainable=False)
