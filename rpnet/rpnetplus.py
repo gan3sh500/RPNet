@@ -9,6 +9,8 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/../')
 from rpnet import RPNet, data_preprocessing  # @UnresolvedImport
 from abstract_network.setting import Setting
 from abstract_network.abstract import AbstractNetwork
+from GoogLeNet.googlenet import GoogLeNet
+from efficientnet import EfficientNet
 import tensorflow as tf
 
 
@@ -28,7 +30,10 @@ class RPNetPlus(RPNet, AbstractNetwork):
         
         flags.name = 'RPNetPlus'
         self.output_dim = 7
-
+        if flags.base_model == 'googlenet':
+            self.ModelClass = GoogLeNet
+        else:
+            self.ModelClass = EfficientNet
         self.use_extraLoss = flags.use_extraLoss
         self.wd = flags.wd
         self.beta = flags.beta

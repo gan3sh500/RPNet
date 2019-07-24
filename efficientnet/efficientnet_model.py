@@ -5,7 +5,7 @@ import six
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
-import utils
+from .utils import drop_connect, DepthwiseConv2D
 
 GlobalParams = collections.namedtuple('GlobalParams', [
     'batch_norm_momentum', 'batch_norm_epsilon', 'dropout_rate', 'data_format',
@@ -154,7 +154,7 @@ class MBConvBlock(object):
 
     kernel_size = self._block_args.kernel_size
     # Depth-wise convolution phase:
-    self._depthwise_conv = utils.DepthwiseConv2D(
+    self._depthwise_conv = DepthwiseConv2D(
         [kernel_size, kernel_size],
         strides=self._block_args.strides,
         depthwise_initializer=conv_kernel_initializer,
@@ -251,7 +251,7 @@ class MBConvBlock(object):
       ) and self._block_args.input_filters == self._block_args.output_filters:
         # only apply drop_connect if skip presents.
         if drop_connect_rate:
-          x = utils.drop_connect(x, training, drop_connect_rate)
+          x = drop_connect(x, training, drop_connect_rate)
         x = tf.add(x, inputs)
     tf.logging.info('Project: %s shape: %s' % (x.name, x.shape))
     return x

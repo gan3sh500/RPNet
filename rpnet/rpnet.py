@@ -79,9 +79,8 @@ class RPNet(AbstractNetwork):
 
     def prepare_inference(self):
         
-        with tf.variable_scope("") as scope:
+        with tf.variable_scope("", reuse=tf.AUTO_REUSE) as scope:
             net_1 = self.ModelClass({'data': self.input_X[:, 0]})
-            scope.reuse_variables()
             net_2 = self.ModelClass({'data': self.input_X[:, 1]})
         
         weight_vars = [v for v in tf.global_variables() if "weights" in v.name]

@@ -13,7 +13,7 @@ class Setting():
     def __init__(self, folder_name):
         
         # path to store all the data, train log and other results
-        log_dir = '/mnt/RPNet/'
+        log_dir = 'D:/RPNet/'
         # dataset
         self.dataset_shuffle_size = 2500 # dataset shuffle buffle size 
         self.hostname = socket.gethostname()

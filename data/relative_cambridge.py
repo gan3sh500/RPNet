@@ -37,7 +37,6 @@ def create_share_from_arr(arr, cdtype):
 
 def _read_image(param):
     index, each = param
-    
     if not os.path.exists(each[0]):
     
         im1 = cv2.imread(each[0].replace('/data/chercheurs/en', '/home/2017025/sen01'))  # @UndefinedVariable
@@ -269,23 +268,24 @@ class RelativeCambridge(AbstractData):
     
     def process(self, annot):
         global images
+
+        # images = create_share_ndarray((len(annot), 2, 256, 455, 3), 'uint8', ctypes.c_uint8)
+        # pool = Pool(processes = 2)  # @UndefinedVariable
+        # pool.map(_read_image, list(enumerate(annot)))
+        # pool.close()
+        # pool.join()
         
-        images = create_share_ndarray((len(annot), 2, 256, 455, 3), 'uint8', ctypes.c_uint8)
-        pool = Pool(processes = multiprocessing.cpu_count() - 1)  # @UndefinedVariable
-        pool.map(_read_image, enumerate(annot))
-        pool.close()
-        pool.join()
-        
-#         images = np.zeros((len(annot), 2, 256, 455, 3), 'uint8')
-#         for index, each in enumerate(annot):
-# 
-#             im1 = cv2.imread(each[0])  # @UndefinedVariable
-#             im1 = cv2.resize(im1, (455, 256))  # @UndefinedVariable
-#             
-#             im2 = cv2.imread(each[8])  # @UndefinedVariable
-#             im2 = cv2.resize(im2, (455, 256))  # @UndefinedVariable
-# 
-#             images[index] = np.array([im1, im2])
+        images = np.zeros((len(annot), 2, 256, 455, 3), 'uint8')
+        from tqdm import tqdm
+        for index, each in tqdm(enumerate(annot)):
+
+            im1 = cv2.imread(each[0])  # @UndefinedVariable
+            im1 = cv2.resize(im1, (455, 256))  # @UndefinedVariable
+            
+            im2 = cv2.imread(each[8])  # @UndefinedVariable
+            im2 = cv2.resize(im2, (455, 256))  # @UndefinedVariable
+
+            images[index] = np.array([im1, im2])
         images = images.astype('f4')
         images -= images.mean(axis=0).mean(axis=0)
         
